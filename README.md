@@ -20,3 +20,8 @@ cases, and performs quality assurance. No role works in isolation.
 Every role depends on every other role
 delivering on time. This is not an individual assignment — it is a
 team system design interview. Here is the breakdown for tonight:
+
+### Part 1 — Align and Launch 
+
+The goal of Part 1 is to make sure every team member understands the
+full system before anyone writes a line of code.
