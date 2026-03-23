@@ -144,7 +144,7 @@ def render_ingestion_panel(
     uploaded_files = st.sidebar.file_uploader(
         "Upload study materials",
         type=["pdf", "md"],
-        accept_multiple_files=True
+        accept_multiple_files=True,
         key=f"uploader_{st.session_state.uploader_key}" # NEW RESET LOGIC
     )
 
