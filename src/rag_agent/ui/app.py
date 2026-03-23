@@ -323,7 +323,7 @@ def render_chat_interface(graph) -> None:
         )
 
     # Chat history display
-    chat_container = st.container(height=400)
+    chat_container = st.container(height=520)
     # with chat_container:
     #     for message in st.session_state.chat_history:
     #         with st.chat_message(message["role"]):
