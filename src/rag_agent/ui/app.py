@@ -145,6 +145,7 @@ def render_ingestion_panel(
         "Upload study materials",
         type=["pdf", "md"],
         accept_multiple_files=True
+        key=f"uploader_{st.session_state.uploader_key}" # NEW RESET LOGIC
     )
 
     if st.sidebar.button("Ingest Documents", disabled=not uploaded_files):
