@@ -372,19 +372,30 @@ def render_chat_interface(graph) -> None:
                         result = graph.invoke(inputs, config=config)
                         response = result["final_response"]
                         
-                        st.markdown(response.answer)
-                        if response.sources:
+                        # --- NEW: Handle LangGraph's state serialization ---
+                        if isinstance(response, dict):
+                            ans = response.get("answer", "")
+                            srcs = response.get("sources", [])
+                            no_ctx = response.get("no_context_found", False)
+                        else:
+                            ans = response.answer
+                            srcs = response.sources
+                            no_ctx = response.no_context_found
+                        # ---------------------------------------------------
+                        
+                        st.markdown(ans)
+                        if srcs:
                             with st.expander("📎 Sources"):
-                                for source in response.sources:
+                                for source in srcs:
                                     st.caption(source)
-                        if response.no_context_found:
+                        if no_ctx:
                             st.warning("⚠️ Guardrail Triggered: No relevant content found.")
                             
                         st.session_state.chat_history.append({
                             "role": "assistant", 
-                            "content": response.answer,
-                            "sources": response.sources,
-                            "no_context": response.no_context_found
+                            "content": ans,
+                            "sources": srcs,
+                            "no_context": no_ctx
                         })
                     except Exception as e:
                         st.error(f"Agent error: {e}")
