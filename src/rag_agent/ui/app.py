@@ -324,16 +324,32 @@ def render_chat_interface(graph) -> None:
 
     # Chat history display
     chat_container = st.container(height=400)
+    # with chat_container:
+    #     for message in st.session_state.chat_history:
+    #         with st.chat_message(message["role"]):
+    #             st.markdown(message["content"])
+    #             if message.get("sources"):
+    #                 with st.expander("📎 Sources"):
+    #                     for source in message["sources"]:
+    #                         st.caption(source)
+    #             if message.get("no_context_found"):
+    #                 st.warning("⚠️ No relevant content found in corpus.")
+
     with chat_container:
+        if not st.session_state.chat_history:
+            st.caption("Start the interview by asking a deep learning question.")
+            
         for message in st.session_state.chat_history:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
+                
                 if message.get("sources"):
                     with st.expander("📎 Sources"):
                         for source in message["sources"]:
                             st.caption(source)
-                if message.get("no_context_found"):
-                    st.warning("⚠️ No relevant content found in corpus.")
+                            
+                if message.get("no_context"):
+                    st.warning("⚠️ Guardrail Triggered: No relevant content found.")
 
     # Chat input
     # TODO: implement
@@ -352,6 +368,7 @@ def render_chat_interface(graph) -> None:
     # STRETCH GOAL — streaming:
     # Replace graph.invoke with graph.stream() and use st.write_stream()
     # to display tokens as they arrive. Significant "wow factor" in Hour 3.
+    
     if query := st.chat_input("Ask about a deep learning topic..."):
         st.session_state.chat_history.append({"role": "user", "content": query})
         
@@ -370,19 +387,18 @@ def render_chat_interface(graph) -> None:
                     
                     try:
                         result = graph.invoke(inputs, config=config)
-                        response = result["final_response"]
+                        response = result.get("final_response", {})
                         
-                        # --- NEW: Handle LangGraph's state serialization ---
+                        # Handle LangGraph's state serialization safely
                         if isinstance(response, dict):
-                            ans = response.get("answer", "")
+                            ans = response.get("answer", "I encountered an error.")
                             srcs = response.get("sources", [])
                             no_ctx = response.get("no_context_found", False)
                         else:
-                            ans = response.answer
-                            srcs = response.sources
-                            no_ctx = response.no_context_found
-                        # ---------------------------------------------------
-                        
+                            ans = getattr(response, "answer", "I encountered an error.")
+                            srcs = getattr(response, "sources", [])
+                            no_ctx = getattr(response, "no_context_found", False)
+                            
                         st.markdown(ans)
                         if srcs:
                             with st.expander("📎 Sources"):
@@ -399,7 +415,6 @@ def render_chat_interface(graph) -> None:
                         })
                     except Exception as e:
                         st.error(f"Agent error: {e}")
-
 # ---------------------------------------------------------------------------
 # Main Application
 # ---------------------------------------------------------------------------
