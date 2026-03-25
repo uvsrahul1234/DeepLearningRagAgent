@@ -17,8 +17,8 @@ Export from FigJam, Miro, or draw.io and embed as an image,
 or describe the architecture as an ASCII diagram.
 
 The diagram must show:
-- [ . ] How a corpus file becomes a chunk
-- [ . ] How a chunk becomes an embedding
+- [ ] How a corpus file becomes a chunk
+- [ ] How a chunk becomes an embedding
 - [ ] How duplicate detection fires
 - [ ] How a user query flows through LangGraph to a response
 - [ ] Where the hallucination guard sits in the graph
