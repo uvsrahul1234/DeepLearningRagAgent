@@ -2,11 +2,11 @@
 ## Team: RAG REGEN
 ## Date: 03/17/2026
 ## Members and Roles:
-- Corpus Architect: ___________________
-- Pipeline Engineer: ___________________
+- Corpus Architect: Anisha
+- Pipeline Engineer: 
 - UX Lead: ___________________
-- Prompt Engineer: ___________________
-- QA Lead: ___________________
+- Prompt Engineer: Viral
+- QA Lead: Rahul
 
 ---
 
