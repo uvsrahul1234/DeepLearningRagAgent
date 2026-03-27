@@ -3,8 +3,8 @@
 ## Date: 03/17/2026
 ## Members and Roles:
 - Corpus Architect: Anisha
-- Pipeline Engineer: sister 1
-- UX Lead: sister 2
+- Pipeline Engineer: Ananya
+- UX Lead: swathi
 - Prompt Engineer: Viral
 - QA Lead: Rahul
 
