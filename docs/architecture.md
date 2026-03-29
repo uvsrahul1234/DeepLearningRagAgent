@@ -34,7 +34,20 @@ The diagram must show:
         │                                                      (Vector Store)
         ▼                                                          ▲
 [Embedding Factory] ──(all-MiniLM-L6-v2)───────────────────────────┘
-          
+
+
+                                ┌─────────────────────────┐
+[User UI / Streamlit] ────────> │ LangGraph Orchestrator  │
+        ▲                       └─────────────────────────┘
+        │                               │     ▲
+        │       (Query)                 ▼     │ (Top K Chunks)
+        │                       [Retrieval Node] 
+        │                               │
+        │                               ▼
+        │                       [Guardrail Evaluator] ──(Threshold < 0.65?) ──> Return "Off-Topic"
+        │                               │
+        │                               ▼
+        └───────────(JSON/Text)─ [Generation Node] (Groq Llama-3.1-8b)
 
 
 ---
