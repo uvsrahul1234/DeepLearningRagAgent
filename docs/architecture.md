@@ -69,15 +69,14 @@ The diagram must show:
   We utilized semantic chunking targeting 100-300 words with a 50-character overlap. Instead of arbitrary character cutoffs, we chunked by atomic ideas (e.g., separating the LSTM "Forget Gate" from the "Input Gate") to ensure the LLM retrieves precise, targeted context for interview questions.
 
 - **Metadata schema:**
-  *(list every metadata field your chunks carry and explain why each field exists)*
   | Field | Type | Purpose |
   |---|---|---|
-  | topic | string | |
-  | difficulty | string | |
-  | type | string | |
-  | source | string | |
-  | related_topics | list | |
-  | is_bonus | bool | |
+  | topic | string | Categorizes the chunk for UI filtering (e.g., "ANN", "CNN"). |
+  | difficulty | string | Enables the Prompt Engineer to calibrate question generation. |
+  | type | string | Identifies if the chunk is a "concept_explanation" or "code_example". |
+  | source | string | Required for the LLM to generate accurate source citations. |
+  | related_topics | list | Allows for cross-topic interview questions (e.g., CNN + RNN). |
+  | is_bonus | bool | Flags stretch topics like GANs or SOMs. |
 
 - **Duplicate detection approach:**
   *(how is the chunk ID generated? why is a content hash more reliable than a filename?)*
