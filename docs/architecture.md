@@ -66,8 +66,7 @@ The diagram must show:
   - Hochreiter & Schmidhuber (1997) - LSTM
 
 - **Chunking strategy:**
-  *(what chunk size and overlap did you choose, and why?
-  e.g. 512 characters with 50 overlap — justify this choice)*
+  We utilized semantic chunking targeting 100-300 words with a 50-character overlap. Instead of arbitrary character cutoffs, we chunked by atomic ideas (e.g., separating the LSTM "Forget Gate" from the "Input Gate") to ensure the LLM retrieves precise, targeted context for interview questions.
 
 - **Metadata schema:**
   *(list every metadata field your chunks carry and explain why each field exists)*
