@@ -24,7 +24,18 @@ The diagram must show:
 - [ ] Where the hallucination guard sits in the graph
 - [ ] How conversation memory is maintained across turns
 
-*(replace this line with your diagram image or ASCII art)*
+[Corpus (.md/.pdf)] 
+        │
+        ▼
+[Document Chunker] ──(Splits into 100-300 word semantic concepts)──┐
+        │                                                          │
+        ▼                                                          ▼
+[Content Hasher] ──(Generates SHA-256 hash for idempotency)──> [ChromaDB]
+        │                                                      (Vector Store)
+        ▼                                                          ▲
+[Embedding Factory] ──(all-MiniLM-L6-v2)───────────────────────────┘
+          
+
 
 ---
 
