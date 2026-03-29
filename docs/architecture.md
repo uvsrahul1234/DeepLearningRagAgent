@@ -58,13 +58,12 @@ The diagram must show:
 
 - **Source files location:** `data/corpus/`
 - **File formats used:**
-  *(which file types did your team ingest — .md, .pdf, or both?)*
+  .md (for custom drafted concepts) and .pdf (for landmark papers).
 
 - **Landmark papers ingested:**
-  *(list the papers your team located and ingested, one per line)*
-  -
-  -
-  -
+  - Rumelhart, Hinton & Williams (1986) - Backpropagation
+  - LeCun et al. (1998) - LeNet
+  - Hochreiter & Schmidhuber (1997) - LSTM
 
 - **Chunking strategy:**
   *(what chunk size and overlap did you choose, and why?
