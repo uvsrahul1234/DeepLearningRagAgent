@@ -33,6 +33,11 @@ from rag_agent.config import get_settings
 from rag_agent.corpus.chunker import DocumentChunker
 from rag_agent.vectorstore.store import VectorStoreManager
 
+import json
+from langchain_core.messages import HumanMessage
+from rag_agent.agent.prompts import QUESTION_GENERATION_PROMPT, ANSWER_EVALUATION_PROMPT
+from rag_agent.config import LLMFactory, get_settings
+
 
 # ---------------------------------------------------------------------------
 # Cached Resources
@@ -189,6 +194,74 @@ def render_ingestion_panel(
                 if st.button("🗑️", key=f"del_{doc['source']}", help="Delete"):
                     store.delete_document(doc["source"])
                     st.rerun()
+def render_interview_panel(store) -> None:
+    """Render a dedicated mock interview panel in the sidebar."""
+    st.sidebar.markdown("---")
+    st.sidebar.header("🎯 Mock Interview Mode")
+    
+    settings = get_settings()
+    llm = LLMFactory(settings).create()
+
+    # Button to generate a question
+    if st.sidebar.button("Generate Interview Question"):
+        with st.sidebar.status("Analyzing corpus..."):
+            # 1. Grab a random relevant chunk (we'll just query a broad term)
+            chunks = store.query("deep learning neural networks", n_results=1)
+            
+            if not chunks:
+                st.sidebar.error("Ingest some documents first!")
+                return
+                
+            context = chunks[0].chunk_text
+            
+            # 2. Format and send the QUESTION prompt
+            prompt = QUESTION_GENERATION_PROMPT.format(
+                context=context, 
+                difficulty="intermediate"
+            )
+            
+            try:
+                # Force JSON response
+                response = llm.invoke([HumanMessage(content=prompt)])
+                
+                # Strip markdown code blocks if the LLM added them
+                clean_json = response.content.replace("```json", "").replace("```", "").strip()
+                q_data = json.loads(clean_json)
+                
+                # 3. Save to session state so we can answer it
+                st.session_state.current_question = q_data["question"]
+                st.session_state.question_context = context
+                st.rerun()
+            except Exception as e:
+                st.sidebar.error(f"Failed to generate: {e}")
+
+    # Display the generated question and answer box
+    if st.session_state.get("current_question"):
+        st.sidebar.info(f"**Question:** {st.session_state.current_question}")
+        
+        user_answer = st.sidebar.text_area("Your Answer:")
+        if st.sidebar.button("Submit Answer"):
+            with st.sidebar.status("Grading..."):
+                # Format and send the EVALUATION prompt
+                eval_prompt = ANSWER_EVALUATION_PROMPT.format(
+                    question=st.session_state.current_question,
+                    candidate_answer=user_answer,
+                    context=st.session_state.question_context
+                )
+                
+                try:
+                    eval_response = llm.invoke([HumanMessage(content=eval_prompt)])
+                    clean_eval = eval_response.content.replace("```json", "").replace("```", "").strip()
+                    grade_data = json.loads(clean_eval)
+                    
+                    # Display the scorecard!
+                    st.sidebar.metric("Score", f"{grade_data['score']}/10")
+                    st.sidebar.success(f"**What you got right:** {grade_data['what_was_correct']}")
+                    st.sidebar.warning(f"**What was missing:** {grade_data['what_was_missing']}")
+                    st.sidebar.write(f"**Verdict:** {grade_data['interview_verdict'].upper()}")
+                    
+                except Exception as e:
+                    st.sidebar.error(f"Grading failed: {e}")
 
 def render_corpus_stats(store: VectorStoreManager) -> None:
     """
@@ -452,6 +525,7 @@ def main() -> None:
 
     # Sidebar
     render_ingestion_panel(store, chunker)
+    render_interview_panel(store)
     render_corpus_stats(store)
 
     # Main content area — two columns
