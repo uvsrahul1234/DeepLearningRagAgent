@@ -15,6 +15,7 @@ PEP 8 | OOP
 from __future__ import annotations
 
 import pytest
+import uuid
 
 from rag_agent.agent.state import ChunkMetadata, DocumentChunk
 from rag_agent.config import Settings
@@ -31,6 +32,8 @@ def temp_store(tmp_path) -> VectorStoreManager:
     Provide an isolated VectorStoreManager connected to a temporary directory.
     This ensures tests do not pollute the real application database.
     """
+    unique_collection_name = f"test_collection_{uuid.uuid4().hex[:8]}"
+    
     settings = Settings(
         chroma_db_path=str(tmp_path / "test_chroma"),
         embedding_provider="local",
@@ -129,6 +132,13 @@ def test_ingested_chunk_is_duplicate(temp_store, sample_chunk: DocumentChunk) ->
 
 def test_ingestion_skips_duplicate(temp_store, sample_chunk: DocumentChunk) -> None:
     """Ingesting the same chunk twice must result in skipped=1 on second call."""
+    sample_chunk.chunk_text += str(uuid.uuid4())
+    sample_chunk.chunk_id = VectorStoreManager.generate_chunk_id(
+        sample_chunk.metadata.source, 
+        sample_chunk.chunk_text
+    )
+    # -------------------------------------------------------------------------
+    
     # First ingestion
     result1 = temp_store.ingest([sample_chunk])
     assert result1.ingested == 1

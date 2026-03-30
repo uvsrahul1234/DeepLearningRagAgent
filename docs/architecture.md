@@ -79,7 +79,7 @@ The diagram must show:
   | is_bonus | bool | Flags stretch topics like GANs or SOMs. |
 
 - **Duplicate detection approach:**
-  *(how is the chunk ID generated? why is a content hash more reliable than a filename?)*
+  We generate a SHA-256 hash of the chunk_text and store it as the document ID. This content-based hashing ensures pipeline idempotency—a crucial requirement for robust data engineering workflows—preventing duplicate vectors even if a file is renamed and re-uploaded.
 
 - **Corpus coverage:**
   - [ ] ANN
