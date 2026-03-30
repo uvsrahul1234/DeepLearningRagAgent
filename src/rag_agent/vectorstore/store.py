@@ -312,51 +312,57 @@ class VectorStoreManager:
         # Convert distances to similarity scores: score = 1 - distance (for cosine)
         # Filter out chunks below self._settings.similarity_threshold
         # Return list of RetrievedChunk objects sorted by score descending
-        where_clause = {}
-        filters = []
+        k = k or self._settings.retrieval_k
         
-        if topic_filter and topic_filter != "All":
-            filters.append({"topic": topic_filter})
-        if difficulty_filter and difficulty_filter != "All":
-            filters.append({"difficulty": difficulty_filter})
+        # Build ChromaDB where-filter
+        conditions = []
+        if topic_filter:
+            conditions.append({"topic": topic_filter})
+        if difficulty_filter:
+            conditions.append({"difficulty": difficulty_filter})
             
-        if len(filters) == 1:
-            where_clause = filters[0]
-        elif len(filters) > 1:
-            where_clause = {"$and": filters}
-        # ----------------------------------------
+        if len(conditions) == 1:
+            where_filter = conditions[0]
+        elif len(conditions) > 1:
+            where_filter = {"$and": conditions}
+        else:
+            where_filter = None
 
         try:
+            # Generate embedding for the query
             query_embedding = self._embeddings.embed_query(query_text)
             
-            # Pass the where_clause into the ChromaDB query
+            # Query the database
             results = self._collection.query(
                 query_embeddings=[query_embedding],
-                n_results=n_results,
-                where=where_clause if where_clause else None
+                n_results=k,
+                where=where_filter,
+                include=["documents", "metadatas", "distances"]
             )
             
             retrieved_chunks = []
-            if not results["ids"][0]:
+            
+            if not results["ids"] or not results["ids"][0]:
                 return retrieved_chunks
                 
             for i in range(len(results["ids"][0])):
-                score = 1.0 - results["distances"][0][i]  # Convert distance to similarity
+                # 
+                # ChromaDB returns Euclidean/Cosine distance.
+                # For cosine space, similarity score = 1 - distance.
+                distance = results["distances"][0][i]
+                similarity_score = 1.0 - distance
                 
-                # Check similarity threshold (hallucination guard)
-                if score < self.similarity_threshold:
-                    continue
+                # Apply the hallucination guard rail
+                if similarity_score >= self._settings.similarity_threshold:
+                    chunk = RetrievedChunk(
+                        chunk_id=results["ids"][0][i],
+                        chunk_text=results["documents"][0][i],
+                        metadata=ChunkMetadata(**results["metadatas"][0][i]),
+                        score=similarity_score
+                    )
+                    retrieved_chunks.append(chunk)
                     
-                metadata = ChunkMetadata.from_dict(results["metadatas"][0][i])
-                chunk = RetrievedChunk(
-                    chunk_id=results["ids"][0][i],
-                    chunk_text=results["documents"][0][i],
-                    metadata=metadata,
-                    score=score
-                )
-                retrieved_chunks.append(chunk)
-                
-            # Sort by score descending
+            # Sort highest score first
             retrieved_chunks.sort(key=lambda x: x.score, reverse=True)
             return retrieved_chunks
             
