@@ -344,8 +344,10 @@ def should_retry_retrieval(state: AgentState) -> str:
     # Simple version: if no_context_found → "end", else → "generate"
     # Advanced version: track retry count, allow one retry with broader query
     if state.get("no_context_found", False):
-        logger.info("Routing: no context found, skipping generation -> END")
-        return "end"
+        # We MUST route to generate here so the generation_node's 
+        # Hallucination Guard has a chance to execute and overwrite the state!
+        logger.info("Routing: no context found -> triggering hallucination guard in generation")
+        return "generate"
         
     logger.info("Routing: context found -> generate")
     return "generate"
