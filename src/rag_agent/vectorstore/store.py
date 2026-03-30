@@ -158,8 +158,13 @@ class VectorStoreManager:
         # TODO: implement
         # self._collection.get(ids=[chunk_id])
         # Return True if the result contains the ID, False otherwise
-        result = self._collection.get(ids=[chunk_id])
-        return len(result["ids"]) > 0
+        try:
+            result = self._collection.get(ids=[chunk_id])
+            # Check if the 'ids' list inside the result dictionary actually has items
+            return len(result.get("ids", [])) > 0
+        except Exception as e:
+            logger.error(f"Error checking for duplicate chunk {chunk_id}: {e}")
+            return False
 
     # -----------------------------------------------------------------------
     # Ingestion
