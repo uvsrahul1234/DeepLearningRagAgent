@@ -194,6 +194,7 @@ def render_ingestion_panel(
                 if st.button("🗑️", key=f"del_{doc['source']}", help="Delete"):
                     store.delete_document(doc["source"])
                     st.rerun()
+
 def render_interview_panel(store) -> None:
     """Render a dedicated mock interview panel in the sidebar."""
     st.sidebar.markdown("---")
@@ -206,7 +207,7 @@ def render_interview_panel(store) -> None:
     if st.sidebar.button("Generate Interview Question"):
         with st.sidebar.status("Analyzing corpus..."):
             # 1. Grab a random relevant chunk (we'll just query a broad term)
-            chunks = store.query("deep learning neural networks", n_results=1)
+            chunks = store.query("deep learning neural networks")
             
             if not chunks:
                 st.sidebar.error("Ingest some documents first!")
