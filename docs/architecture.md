@@ -141,9 +141,8 @@ The diagram must show:
   *I cannot find relevant information in the provided study materials to answer this question. Let's stick to the deep learning corpus.*
 
 - **Query rewriting:**
-  *(give one example of a raw user query and how your system rewrites it)*
-  - Raw query:
-  - Rewritten query:
+  - Raw query: What about the vanishing gradient one?
+  - Rewritten query: How do LSTMs solve the vanishing gradient problem in RNNs?
 
 - **Conversation memory:**
   *(how is history maintained across turns? what happens when context window fills up?)*
