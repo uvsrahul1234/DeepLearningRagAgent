@@ -106,20 +106,19 @@ The diagram must show:
   *all-MiniLM-L6-v2 via sentence-transformers*
 
 - **Why this embedding model:**
-  *Cosine similarity. It handles vector magnitude variations well, which is important since our chunk lengths vary between 100 and 300 words.*
+  *It is a lightweight, open-source local model that balances embedding quality with processing speed. Running it locally avoids API rate limits during bulk ingestion.*
 
 - **Similarity metric:**
-  *(cosine or dot product — which did you use and why?)*
+  *Cosine similarity. It handles vector magnitude variations well, which is important since our chunk lengths vary between 100 and 300 words.*
 
 - **Retrieval k:**
-  *(how many chunks do you retrieve per query and why?)*
+  *This provides enough context for the LLM to synthesize a complete answer without overflowing the context window or introducing distracting, loosely related concepts. K = 3*
 
 - **Similarity threshold:**
-  *(what is your minimum score to pass the hallucination guard?
-  how did you arrive at this number?)*
+  *Calibrated by manually testing off-topic queries (e.g., "History of Rome") versus highly specific ML queries.*
 
 - **Metadata filtering:**
-  *(can users filter by topic or difficulty? how is this implemented?)*
+  *Users can filter by the topic metadata field via a dropdown in the Streamlit UI, which passes a where clause to the ChromaDB query.*
 
 ---
 
