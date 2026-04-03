@@ -96,14 +96,17 @@ The diagram must show:
 
 ### Vector Store Layer
 
-- **Database:** ChromaDB — PersistentClient
-- **Local persistence path:** *(what is your CHROMA_DB_PATH?)*
+- **Database:** 
+  *ChromaDB — PersistentClient*
+
+- **Local persistence path:** 
+  *./data/chroma_db*
 
 - **Embedding model:**
-  *(name and provider — e.g. all-MiniLM-L6-v2 via sentence-transformers)*
+  *all-MiniLM-L6-v2 via sentence-transformers*
 
 - **Why this embedding model:**
-  *(what tradeoffs did you consider? speed vs quality? local vs API?)*
+  *Cosine similarity. It handles vector magnitude variations well, which is important since our chunk lengths vary between 100 and 300 words.*
 
 - **Similarity metric:**
   *(cosine or dot product — which did you use and why?)*
