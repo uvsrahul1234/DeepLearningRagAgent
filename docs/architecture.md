@@ -145,7 +145,7 @@ The diagram must show:
   - Rewritten query: How do LSTMs solve the vanishing gradient problem in RNNs?
 
 - **Conversation memory:**
-  *(how is history maintained across turns? what happens when context window fills up?)*
+  *Maintained in Streamlit's st.session_state["messages"] and passed into the LangGraph state on each turn*
 
 - **LLM provider:**
   *(which provider did your team use — Groq, Ollama, or LM Studio? which model?)*
