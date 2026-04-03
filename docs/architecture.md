@@ -130,12 +130,12 @@ The diagram must show:
   *(describe what each node does in one sentence)*
   | Node | Responsibility |
   |---|---|
-  | query_rewrite_node | |
-  | retrieval_node | |
-  | generation_node | |
+  | query_rewrite_node | Refines conversational user input into a dense search query. |
+  | retrieval_node | Interfaces with VectorStoreManager to fetch the top k chunks. |
+  | generation_node | Passes chunks to the LLM and formats the final JSON/Text response. |
 
 - **Conditional edges:**
-  *(what condition triggers each edge? what happens when no context is found?)*
+  *After retrieval, a conditional edge evaluates the similarity score. If the max score is below 0.65, the graph routes directly to the END node, skipping generation.*
 
 - **Hallucination guard:**
   *(exactly what does your system return when similarity threshold is not met?
