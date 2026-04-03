@@ -138,8 +138,7 @@ The diagram must show:
   *After retrieval, a conditional edge evaluates the similarity score. If the max score is below 0.65, the graph routes directly to the END node, skipping generation.*
 
 - **Hallucination guard:**
-  *(exactly what does your system return when similarity threshold is not met?
-  paste the message here)*
+  *I cannot find relevant information in the provided study materials to answer this question. Let's stick to the deep learning corpus.*
 
 - **Query rewriting:**
   *(give one example of a raw user query and how your system rewrites it)*
