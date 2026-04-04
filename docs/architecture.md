@@ -170,11 +170,9 @@ The diagram must show:
   *Appended the instruction: "Respond with the JSON object only. No preamble, explanation, or markdown code fences." We also implemented a lightweight Python try/except JSON parsing block in the backend to strip accidental backticks.*
 
 - **Failure modes identified:**
-  *(list at least one failure mode per prompt and how you addressed it)*
-  -
-  -
-  -
+  - Mode: LLM occasionally complimented the user before delivering the JSON (breaking the parser). Fix: Enforced strict JSON-only output in the system prompt.
 
+  - Mode: Generated questions were too broad (e.g., "What is a neural network?"). Fix: Forced the prompt to focus specifically on the atomic concept in the chunk.
 ---
 
 ### Interface Layer
