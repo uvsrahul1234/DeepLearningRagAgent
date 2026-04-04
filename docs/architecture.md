@@ -210,11 +210,11 @@ These are your Hour 3 interview talking points — be specific.
 "We used the default settings" is not a design decision.
 
 1. **Decision:**
-   *(e.g. chunk size of 512 with 50 character overlap)*
+   *Using SHA-256 content hashing for chunk IDs instead of sequential numbers or filenames.*
    **Rationale:**
-   *(why this over alternatives? what would break if you changed it?)*
+   *This guarantees idempotency. If a team member modifies a single typo in a markdown file and re-uploads it, only the modified chunk gets a new hash and is ingested. The rest are skipped.*
    **Interview answer:**
-   *(write a two sentence answer you could give in a technical screen)*
+   *To ensure the ingestion pipeline is robust and idempotent, we implemented content-based hashing; this prevents vector duplication at the data layer, regardless of how many times a user attempts to re-ingest the same file.*
 
 2. **Decision:**
    **Rationale:**
