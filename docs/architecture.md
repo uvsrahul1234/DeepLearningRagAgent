@@ -164,7 +164,7 @@ The diagram must show:
   *Takes {context} and {difficulty} as inputs. It returns a strictly formatted JSON object containing the question, model answer, and a follow-up prompt.*
 
 - **Answer evaluation prompt:**
-  *(how does it score a candidate answer? what is the scoring rubric?)*
+  *Takes the {question}, the student's {candidate_answer}, and the {context}. It uses a 10-point rubric to penalize hallucinations and reward accurate terminology.*
 
 - **JSON reliability:**
   *(what did you add to your prompts to ensure consistent JSON output?)*
