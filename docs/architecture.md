@@ -217,15 +217,18 @@ These are your Hour 3 interview talking points — be specific.
    *To ensure the ingestion pipeline is robust and idempotent, we implemented content-based hashing; this prevents vector duplication at the data layer, regardless of how many times a user attempts to re-ingest the same file.*
 
 2. **Decision:**
-  Choosing Groq over local Ollama inference for the Agent layer.
+   Choosing Groq over local Ollama inference for the Agent layer.
    **Rationale:**
    While local embeddings (all-MiniLM) are fast, local LLM generation can bottleneck the chat interface. Groq's LPU speed keeps the interview agent conversational and responsive.
    **Interview answer:**
    We decoupled our compute requirements by running embeddings locally for privacy and cost, while utilizing Groq's API for generation to guarantee sub-second latency in the chat UI.
 
 3. **Decision:**
+   Implementing a hard similarity threshold conditional edge in LangGraph.
    **Rationale:**
+   Rather than relying entirely on the LLM's system prompt to say "I don't know," severing the graph edge completely before generation guarantees zero hallucination for off-topic queries and saves API tokens.
    **Interview answer:**
+   We implemented a deterministic retrieval threshold in our LangGraph orchestrator; if the vector search fails to meet our confidence score, we short-circuit the LLM generation entirely to strictly enforce our hallucination guardrails.
 
 4. **Decision:** *(optional — bonus points in Hour 3)*
    **Rationale:**
