@@ -194,10 +194,9 @@ The diagram must show:
   *(list the st.session_state keys your app uses and what each stores)*
   | Key | Stores |
   |---|---|
-  | chat_history | |
-  | ingested_documents | |
-  | selected_document | |
-  | thread_id | |
+  | messages | The ongoing list of user/assistant chat dictionaries. |
+  | vector_store | The initialized VectorStoreManager instance to prevent re-instantiation. |
+  | processed_files | A set of filename hashes to prevent redundant UI ingestion attempts. |
 
 - **Stretch features implemented:**
   *(streaming responses, async ingestion, hybrid search, re-ranking, other)*
