@@ -178,11 +178,11 @@ The diagram must show:
 ### Interface Layer
 
 - **Framework:** *Streamlit*
-- **Deployment platform:** *(Streamlit Community Cloud / HuggingFace Spaces)*
+- **Deployment platform:** *Streamlit Community Cloud*
 - **Public URL:** *(paste your deployed app URL here once live)*
 
 - **Ingestion panel features:**
-  *(describe what the user sees — file uploader, status display, document list)*
+  *A sidebar with st.file_uploader (accepting multiple files), a progress bar during ingestion, and a success metric showing the number of unique chunks added to ChromaDB.*
 
 - **Document viewer features:**
   *(describe how users browse ingested documents and chunks)*
