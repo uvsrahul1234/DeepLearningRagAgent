@@ -158,7 +158,7 @@ The diagram must show:
 ### Prompt Layer
 
 - **System prompt summary:**
-  *(describe the agent persona and the key constraints in your system prompt)*
+  *The agent assumes the persona of a strict but encouraging Senior ML Interviewer. The absolute constraint is that it must only evaluate answers or generate questions based on the provided context chunks, and it must append a [SOURCE: ...] tag to every technical claim*
 
 - **Question generation prompt:**
   *(what inputs does it take and what does it return?)*
