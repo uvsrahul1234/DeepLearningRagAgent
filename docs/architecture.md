@@ -161,7 +161,7 @@ The diagram must show:
   *The agent assumes the persona of a strict but encouraging Senior ML Interviewer. The absolute constraint is that it must only evaluate answers or generate questions based on the provided context chunks, and it must append a [SOURCE: ...] tag to every technical claim*
 
 - **Question generation prompt:**
-  *(what inputs does it take and what does it return?)*
+  *Takes {context} and {difficulty} as inputs. It returns a strictly formatted JSON object containing the question, model answer, and a follow-up prompt.*
 
 - **Answer evaluation prompt:**
   *(how does it score a candidate answer? what is the scoring rubric?)*
