@@ -177,7 +177,7 @@ The diagram must show:
 
 ### Interface Layer
 
-- **Framework:** *(Streamlit / Gradio)*
+- **Framework:** *Streamlit*
 - **Deployment platform:** *(Streamlit Community Cloud / HuggingFace Spaces)*
 - **Public URL:** *(paste your deployed app URL here once live)*
 
