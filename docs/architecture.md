@@ -148,10 +148,10 @@ The diagram must show:
   *Maintained in Streamlit's st.session_state["messages"] and passed into the LangGraph state on each turn*
 
 - **LLM provider:**
-  *(which provider did your team use — Groq, Ollama, or LM Studio? which model?)*
+  *Groq (llama-3.1-8b-instant)*
 
 - **Why this provider:**
-  *(what was the deciding factor for your team?)*
+  *Groq's LPU architecture provides near-instantaneous inference. For an interactive UI like an interview prep agent, low latency is critical for user experience.*
 
 ---
 
