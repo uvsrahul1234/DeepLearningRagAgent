@@ -185,7 +185,7 @@ The diagram must show:
   *A sidebar with st.file_uploader (accepting multiple files), a progress bar during ingestion, and a success metric showing the number of unique chunks added to ChromaDB.*
 
 - **Document viewer features:**
-  *(describe how users browse ingested documents and chunks)*
+  *An expander widget that lists all ingested sources. Clicking a source reveals the individual chunk texts and their associated metadata.*
 
 - **Chat panel features:**
   *(describe how citations appear, how the hallucination guard is surfaced,
