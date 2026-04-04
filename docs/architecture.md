@@ -167,7 +167,7 @@ The diagram must show:
   *Takes the {question}, the student's {candidate_answer}, and the {context}. It uses a 10-point rubric to penalize hallucinations and reward accurate terminology.*
 
 - **JSON reliability:**
-  *(what did you add to your prompts to ensure consistent JSON output?)*
+  *Appended the instruction: "Respond with the JSON object only. No preamble, explanation, or markdown code fences." We also implemented a lightweight Python try/except JSON parsing block in the backend to strip accidental backticks.*
 
 - **Failure modes identified:**
   *(list at least one failure mode per prompt and how you addressed it)*
