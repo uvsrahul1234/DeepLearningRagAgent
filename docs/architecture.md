@@ -188,8 +188,7 @@ The diagram must show:
   *An expander widget that lists all ingested sources. Clicking a source reveals the individual chunk texts and their associated metadata.*
 
 - **Chat panel features:**
-  *(describe how citations appear, how the hallucination guard is surfaced,
-  and any filters available)*
+  *A scrollable st.chat_message container. Source citations are rendered in bold markdown. If the hallucination guard trips, it renders a warning UI element.*
 
 - **Session state keys:**
   *(list the st.session_state keys your app uses and what each stores)*
