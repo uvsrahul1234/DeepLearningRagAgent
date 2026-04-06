@@ -230,10 +230,6 @@ These are your Hour 3 interview talking points — be specific.
    **Interview answer:**
    We implemented a deterministic retrieval threshold in our LangGraph orchestrator; if the vector search fails to meet our confidence score, we short-circuit the LLM generation entirely to strictly enforce our hallucination guardrails.
 
-4. **Decision:** *(optional — bonus points in Hour 3)*
-   **Rationale:**
-   **Interview answer:**
-
 ---
 
 ## QA Test Results
