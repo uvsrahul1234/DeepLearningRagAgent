@@ -239,7 +239,7 @@ These are your Hour 3 interview talking points — be specific.
 | Test | Expected | Actual | Pass / Fail |
 |---|---|---|---|
 | Normal query | Relevant chunks, source cited | Relevant chunks retrieved, correct citation generated | Pass |
-| Off-topic query | No context found message | | |
+| Off-topic query | No context found message | Graph short-circuited; exact guardrail message returned | Pass |
 | Duplicate ingestion | Second upload skipped | | |
 | Empty query | Graceful error, no crash | | |
 | Cross-topic query | Multi-topic retrieval | | |
