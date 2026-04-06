@@ -241,7 +241,7 @@ These are your Hour 3 interview talking points — be specific.
 | Normal query | Relevant chunks, source cited | Relevant chunks retrieved, correct citation generated | Pass |
 | Off-topic query | No context found message | Graph short-circuited; exact guardrail message returned | Pass |
 | Duplicate ingestion | Second upload skipped | ChromaDB reported 0 new elements added | Pass |
-| Empty query | Graceful error, no crash | | |
+| Empty query | Graceful error, no crash | UI surfaced a "Please enter a query" toast message | Pass |
 | Cross-topic query | Multi-topic retrieval | | |
 
 
