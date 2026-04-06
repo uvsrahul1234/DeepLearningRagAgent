@@ -238,11 +238,12 @@ These are your Hour 3 interview talking points — be specific.
 
 | Test | Expected | Actual | Pass / Fail |
 |---|---|---|---|
-| Normal query | Relevant chunks, source cited | | |
+| Normal query | Relevant chunks, source cited | Relevant chunks retrieved, correct citation generated | Pass |
 | Off-topic query | No context found message | | |
 | Duplicate ingestion | Second upload skipped | | |
 | Empty query | Graceful error, no crash | | |
 | Cross-topic query | Multi-topic retrieval | | |
+
 
 **Critical failures fixed before Hour 3:**
 -
