@@ -246,7 +246,7 @@ These are your Hour 3 interview talking points — be specific.
 
 
 **Critical failures fixed before Hour 3:**
--
+- falure 1
 - 
 
 **Known issues not fixed (and why):**
