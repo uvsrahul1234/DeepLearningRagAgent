@@ -250,7 +250,7 @@ These are your Hour 3 interview talking points — be specific.
 -  falirue 2
 
 **Known issues not fixed (and why):**
--
+- issue 1
 -
 
 ---
