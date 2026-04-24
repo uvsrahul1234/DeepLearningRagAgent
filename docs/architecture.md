@@ -267,9 +267,8 @@ the boundaries of their own system.
 
 ## What We Would Do With More Time
 
-- *(e.g. implement hybrid search combining vector and BM25 keyword search)*
-- *(e.g. add a re-ranking step using a cross-encoder)*
-- *(e.g. async ingestion so large PDFs don't block the UI)*
+- Implement a hybrid search pipeline, combining our dense vector search (ChromaDB) with a sparse keyword search (BM25) to better handle queries looking for exact acronyms or specific author names.
+- Migrate the ingestion pipeline to run asynchronously so that uploading a massive PDF textbook doesn't freeze the Streamlit frontend.
 
 ---
 
