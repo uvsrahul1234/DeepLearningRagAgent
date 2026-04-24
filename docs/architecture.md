@@ -277,13 +277,13 @@ the boundaries of their own system.
 *(QA Lead fills this in — these are the questions your team
 will ask the opposing team during judging)*
 
-**Question 1:**
+**Question 1:** You are building an image classification model and notice the network has an exorbitant number of parameters, leading to severe overfitting. Why might you switch from a standard fully connected Artificial Neural Network (ANN) to a Convolutional Neural Network (CNN)?
 
-Model answer:
+Model answer: CNNs introduce parameter sharing and local receptive fields through convolutional filters. This drastically reduces the total number of parameters compared to a fully connected ANN, where every input pixel connects to every neuron, making the CNN much less prone to overfitting on image data.
 
-**Question 2:**
+**Question 2:** Explain how the architecture of an LSTM directly addresses the vanishing gradient problem found in standard RNNs.
 
-Model answer:
+Model answer: Standard RNNs struggle with long sequences because gradients shrink exponentially during backpropagation through time. LSTMs solve this by introducing a cell state (the "conveyor belt") and three specific gates (forget, input, output). This structure allows gradients to flow unchanged through the cell state, preventing them from vanishing.
 
 **Question 3:**
 
