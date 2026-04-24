@@ -285,9 +285,9 @@ Model answer: CNNs introduce parameter sharing and local receptive fields throug
 
 Model answer: Standard RNNs struggle with long sequences because gradients shrink exponentially during backpropagation through time. LSTMs solve this by introducing a cell state (the "conveyor belt") and three specific gates (forget, input, output). This structure allows gradients to flow unchanged through the cell state, preventing them from vanishing.
 
-**Question 3:**
+**Question 3:** If we inject identical study materials into our RAG system twice, how does the architecture guarantee that we don't retrieve duplicate context chunks during a query?
 
-Model answer:
+Model answer: The ingestion pipeline uses a cryptographic hash (like SHA-256) of the chunk's actual content to generate its unique database ID. ChromaDB will natively reject or overwrite inserts with identical IDs, ensuring the vector database remains perfectly deduplicated.
 
 ---
 
