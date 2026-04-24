@@ -260,9 +260,8 @@ These are your Hour 3 interview talking points — be specific.
 Be honest. Interviewers respect candidates who understand
 the boundaries of their own system.
 
-- *(e.g. PDF chunking produces noisy chunks from reference sections)*
-- *(e.g. similarity threshold was calibrated manually, not empirically)*
-- *(e.g. conversation memory is lost when the app restarts)*
+- The current document chunker relies on markdown headers (##). Ingesting raw PDFs with complex multi-column layouts occasionally introduces formatting noise into the chunk_text.
+- Conversation memory is stored in st.session_state, meaning a hard browser refresh clears the user's interview history.
 
 ---
 
